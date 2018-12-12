@@ -6,14 +6,12 @@
  * @author hiro <@hiro0218>
  */
 
-require_once "config.php";
-
+require_once __DIR__."/config.php";
 require_once MODEL."/hako-cgi.php";
 require_once PRESENTER."/hako-html.php";
+require_once MODEL."/Alliance.php";
 
 use \Hakoniwa\Helper\Util_alliance as Util;
-// use Cgi;
-use \Hakoniwa\Model\Alliance as M_Alliance;
 
 $init = new \Hakoniwa\Init;
 
@@ -524,7 +522,7 @@ EOL
 /**
  * class Main
  */
-class AllyMain
+class Main
 {
     public $mode = "";
     public $dataSet = [];
@@ -566,12 +564,12 @@ class AllyMain
 
             break;
             case "confirm": // 登録の確認（POST）
-                $model = new M_Alliance;
+                $model = new \Hakoniwa\Model\Alliance;
                 $model->confirm($ally, $this->dataSet);
 
             break;
             case "establish": // 登録
-                $model = new M_Alliance;
+                $model = new \Hakoniwa\Model\Alliance;
                 $progress_error = false;
                 if ($model->confirm($ally, $this->dataSet, true)) {
                     $model->establish($ally, $this->dataSet);
@@ -597,7 +595,7 @@ class AllyMain
 
             // break;
             case "delete":
-                $model = new M_Alliance;
+                $model = new Hakoniwa\Model\Alliance;
                 $progress_error = false;
                 if ($model->confirm($ally, $this->dataSet, true)) {
                     $model->establish($ally, $this->dataSet);
@@ -643,7 +641,7 @@ class AllyMain
             case "prejoin": // 同盟への参加
             case "join":
                 $this->dataSet["mode"] = $this->mode;
-                $model = new M_Alliance;
+                $model = new \Hakoniwa\Model\Alliance;
                 $status = $model->join($ally, $this->dataSet);
 
                 if ($this->mode == "prejoin") {
@@ -666,7 +664,7 @@ class AllyMain
 
             break;
             default:
-                $model = new M_Alliance;
+                $model = new \Hakoniwa\Model\Alliance;
                 $html->header();
                 // 箱庭データとのデータ統合処理（ターン処理に組み込んでいないため）
                 if ($model->calculation($ally)) {
@@ -753,4 +751,4 @@ class AllyMain
 
 
 
-$start = (new AllyMain)->execute();
+$start = (new Main)->execute();

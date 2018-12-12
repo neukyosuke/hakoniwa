@@ -40,16 +40,16 @@ if (php_sapi_name() === "cli-server") {
         echo htmlspecialchars($str, ENT_QUOTES | ENT_HTML5);
         echo "</pre>".PHP_EOL;
     }
-    function console_log(string $str): void
+    function logging(string $str): void
     {
         error_log($str, 0);
     }
-    function console_dir($var): void
+    function dump_logging($var): void
     {
         ob_start();
         var_dump($var);
         $str = ob_get_contents();
-        console_log($str);
+        logging($str);
         ob_end_clean();
     }
 

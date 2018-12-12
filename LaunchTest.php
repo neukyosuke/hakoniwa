@@ -67,14 +67,10 @@ final class LaunchTest extends \Hakoniwa\Init
             $this->check_extension_loaded();
             $this->check_license();
         } catch (\Throwable $e) {
-            if (php_sapi_name() === "cli") {
-                echo "[LaunchTest::ERR] ".$e->getMessage()."\n";
-            } else {
-                $this->view_head();
-                $this->print_nl2br($e->getMessage());
-                $this->view_foot();
-                die;
-            }
+            $this->view_head();
+            $this->print_nl2br($e->getMessage());
+            $this->view_foot();
+            die;
         }
     }
 
