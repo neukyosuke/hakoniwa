@@ -375,7 +375,7 @@ class Make
             return;
         }
         // メッセージを更新
-        $island['comment'] = htmlspecialchars($data['MESSAGE']);
+        $island['comment'] = htmlspecialchars($data['MESSAGE'] ?? '', ENT_QUOTES, 'UTF-8');
         $island['comment_turn'] = $hako->islandTurn;
         $hako->islands[$num] = $island;
 
@@ -508,7 +508,7 @@ class Make
 
             return;
         }
-        $island['owner'] = htmlspecialchars($data['OWNERNAME']);
+        $island['owner'] = htmlspecialchars($data['OWNERNAME'] ?? '', ENT_QUOTES, 'UTF-8');
         $hako->islands[$num] = $island;
         // データ書き出し
         $hako->writeIslandsFile($id);

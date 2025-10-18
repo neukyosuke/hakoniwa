@@ -31,7 +31,7 @@ class Alliance
         $password = base64_decode($data["Password"] ?? "", true);
         $island = $game->islands[(int)$game->idToNumber[$player_ID]];
         $candidate = [
-            "name"  => htmlspecialchars($data["AllianceName"]),
+            "name"  => htmlspecialchars($data["AllianceName"] ?? '', ENT_QUOTES, 'UTF-8'),
             "sign"  => $data["AllianceSign"],
             "color" => $data["AllianceColor"]
         ];
@@ -132,7 +132,7 @@ class Alliance
         $password = base64_decode($data['Password'] ?? '', true);
         $island = $game->islands[(int)$game->idToNumber[$player_ID]];
         $new_alliance = [
-            'name'      => htmlspecialchars($data['AllianceName']),
+            'name'      => htmlspecialchars($data['AllianceName'] ?? '', ENT_QUOTES, 'UTF-8'),
             'sign'      => (int)$data['AllianceSign'],
             'sign_str'  => $init->allyMark[(int)$data['AllianceSign']],
             'color'     => $data['AllianceColor']
@@ -193,7 +193,7 @@ class Alliance
         $current_ID = $data['ISLANDID'];
         $allyID = $data['ALLYID'] ?? "";
         $current_alliance_number = $data['ALLYNUMBER'] ?? "";
-        $allyName = htmlspecialchars($data['ALLYNAME']);
+        $allyName = htmlspecialchars($data['ALLYNAME'] ?? '', ENT_QUOTES, 'UTF-8');
         $allyMark = $data['MARK'];
         $allyColor = $data['colorCode'];
         $admin_mode = 0;
