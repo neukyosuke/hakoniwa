@@ -984,6 +984,7 @@ END;
                 break;
 
             case $init->comSoukoM:
+                $flagm = 0; // Initialize flagm before use
                 $flagm = 1;
                 // no break
             case $init->comSoukoF:
@@ -1157,7 +1158,6 @@ class HtmlMapJS extends HtmlMap
             }
         }
         //コマンドリストセット
-        $l_kind;
         $set_listcom = "";
         $click_com = ["", "", "", "", "", "", "", ""];
         $All_listCom = 0;

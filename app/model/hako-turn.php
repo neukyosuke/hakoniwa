@@ -1302,6 +1302,8 @@ class Turn
                         break;
 
                     case $init->comSoukoM:
+                        $flagm = 0; // Initialize flagm before use
+                        $flags = 0; // Initialize flags before use
                         $flagm = 1;
                         // no break
                     case $init->comSoukoF:

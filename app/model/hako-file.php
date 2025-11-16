@@ -529,7 +529,6 @@ class File
             }
             for ($i = ($init->backupTimes - 1); $i >= 0; $i--) {
                 $from = $i - 1; // [NOTE] 直近データにサフィックスが付かないことへの対応調整
-                $dirFp;
                 $dir_from = ($from >= 0) ? "./{$init->dirName}.bak{$from}" : "./{$init->dirName}"; // コピー元
                 $dir_to = "./{$init->dirName}.bak{$i}"; // コピー先
 
@@ -942,7 +941,6 @@ class Hako extends File
 
             case $init->landTown:
                 // 町
-                $p; $n;
                 if ($lv < 30) {
                     $p = 3;
                     $naviTitle = '村';
@@ -1160,6 +1158,7 @@ class Hako extends File
                 break;
 
             case $init->landSoukoM:
+                $flagm = 0; // Initialize flagm before use
                 $flagm = 1;
                 // no break
             case $init->landSoukoF:
@@ -1491,7 +1490,6 @@ class HakoEdit extends File
 
             case $init->landTown:
                 // 町
-                $p; $n;
                 if ($lv < 30) {
                     $p = 3;
                     $naviTitle = '村';
@@ -1711,6 +1709,7 @@ class HakoEdit extends File
                 break;
 
             case $init->landSoukoM:
+                $flagm = 0; // Initialize flagm before use
                 $flagm = 1;
                 // no break
             case $init->landSoukoF:
