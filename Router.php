@@ -40,16 +40,16 @@ if (php_sapi_name() === "cli-server") {
         echo htmlspecialchars($str, ENT_QUOTES | ENT_HTML5);
         echo "</pre>".PHP_EOL;
     }
-    function logging(string $str): void
+    function console_log(string $str): void
     {
         error_log($str, 0);
     }
-    function dump_logging($var): void
+    function console_dir($var): void
     {
         ob_start();
         var_dump($var);
         $str = ob_get_contents();
-        logging($str);
+        console_log($str);
         ob_end_clean();
     }
 
@@ -58,7 +58,6 @@ if (php_sapi_name() === "cli-server") {
     error_reporting(E_ALL);
     header("Cache-Control: no-cache, no-store, must-revalidate");
     header("Expires: Sat, 01 Apr 2017 09:00:00 GMT");
-    require_once __DIR__."/LaunchTest.php";
 
     return false;
 }
