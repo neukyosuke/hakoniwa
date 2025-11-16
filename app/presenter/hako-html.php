@@ -2650,7 +2650,7 @@ END;
 <INPUT TYPE="password" NAME="PASSWORD" SIZE="32" MAXLENGTH="32" class="f" class="form-control">
 END;
         if ($hako->allyNumber) {
-            $str4 = $adminMode ? '・結成・変更' : $init->allyJoinComUse ? '' : '・加盟・脱退';
+            $str4 = $adminMode ? '・結成・変更' : ($init->allyJoinComUse ? '' : '・加盟・脱退');
             $str5 = ($adminMode || $init->allyJoinComUse) ? '' : '<INPUT TYPE="submit" VALUE="加盟・脱退" NAME="JoinAllyButton" class="btn btn-default">';
             echo <<<END
 <BR>
