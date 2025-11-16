@@ -2507,7 +2507,7 @@ END;
 
         function hsc($str)
         {
-            return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+            return htmlspecialchars($str ?? '', ENT_QUOTES, 'UTF-8');
         }
 
         $denying_name_words = '["' . implode('","', $init->denying_name_words) . '"]';

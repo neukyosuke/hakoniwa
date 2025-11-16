@@ -630,11 +630,12 @@ class Util
      */
     public static function htmlEscape($s, $mode = 0): string
     {
+        $s = $s ?? '';
         $s = preg_replace('/&amp;(?=#[\d;])/', '&', htmlspecialchars($s, ENT_QUOTES, 'UTF-8'));
 
         if ($mode) {
             $s = strtr($s, array_fill_keys(["\r\n", "\r", "\n"], '<br>'));
-            $s = preg_replace('/(<br>){3,}/g', '<br><br>', $s); // 大量改行対策
+            $s = preg_replace('/(<br>){3,}/', '<br><br>', $s); // 大量改行対策
         }
 
         return $s;
