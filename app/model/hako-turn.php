@@ -2392,7 +2392,7 @@ class Turn
                                 switch ($tL) {
                                     case $init->landMountain:
                                         // 山
-                                        continue;
+                                        continue 2;
 
                                     case $init->landSbase:
                                     case $init->landSdefence:
@@ -2406,7 +2406,7 @@ class Turn
                                         $tLand[$tx][$ty] = $init->landSea;
                                         $tLandValue[$tx][$ty] = 1;
 
-                                        continue;
+                                        continue 2;
 
                                     case $init->landSea:
                                         // 海の場合
@@ -2439,7 +2439,7 @@ class Turn
                                             $tLandValue[$tx][$ty] = 1;
                                         }
 
-                                        continue;
+                                        continue 2;
 
                                     case $init->landMonster:
                                     case $init->landSleeper:
@@ -2450,7 +2450,7 @@ class Turn
                                         $tLandValue[$tx][$ty] = 0;
                                         $this->log->msLUMonster($id, $target, $name, $tName, $comName, $tLname, $point, $tPoint);
 
-                                        continue;
+                                        continue 2;
 
                                     default:
                                         // その他
