@@ -364,3 +364,9 @@ h2 {
 #NoticeFromAdmin textarea[readonly]:focus {
     outline: 0;
 }
+
+/* Hide banner and myplace elements */
+.banner,
+#myplace {
+    display: none !important;
+}
