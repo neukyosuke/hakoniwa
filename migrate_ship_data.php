@@ -20,7 +20,7 @@ require_once __DIR__.'/config.php';
 require_once __DIR__.'/hako-init-default.php';
 
 // $initオブジェクトを初期化
-$init = new Init();
+$init = new InitDefault();
 
 /**
  * 旧フォーマットで船データをアンパック（5ビット島ID）
