@@ -92,6 +92,23 @@ class LogIO
         }
     }
     /**
+     * 海域の近況を出力（最新5件のみ）
+     */
+    public function historyPrint5(): void
+    {
+        $fileName = $this->init->dirName."/hakojima.his";
+        if (!is_file($fileName)) {
+            return;
+        }
+
+        $histories = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?? [];
+        $recentHistories = array_slice(array_reverse($histories), 0, 5);
+        foreach ($recentHistories as $history) {
+            [$turn, $log] = explode(",", $history, 2);
+            println('<li><span class="number">ターン', $turn, '</span>：', $log, '</li>');
+        }
+    }
+    /**
      * 発見の記録を保存
      */
     public function history(string $str): void
