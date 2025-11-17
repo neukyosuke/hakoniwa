@@ -9,11 +9,18 @@
  * 2. スクリプト実行: php migrate_ship_data.php
  */
 
-define('DEBUG', false);
-define('READ_LINE', 8192);
+if (!defined('DEBUG')) {
+    define('DEBUG', false);
+}
+if (!defined('READ_LINE')) {
+    define('READ_LINE', 8192);
+}
 
 require_once __DIR__.'/config.php';
-require_once __DIR__.'/app/helper/util.php';
+require_once __DIR__.'/hako-init-default.php';
+
+// $initオブジェクトを初期化
+$init = new Init();
 
 /**
  * 旧フォーマットで船データをアンパック（5ビット島ID）
