@@ -1223,7 +1223,7 @@ class Hako extends File
             echo "<a href=\"javascript:void(0);\" onclick=\"ps($x,$y)\">";
         }
 
-        echo "<img src=\"{$init->imgDir}/{$image}\" width=\"32\" height=\"32\" alt=\"{$point} {$naviTitle}\" onMouseOver=\"Navi({$naviPos},'{$init->imgDir}/{$image}', '{$naviTitle}', '{$point}', '{$naviText}', {$naviExp});\" onMouseOut=\"NaviClose(); return false\">";
+        echo "<img src=\"{$init->imgDir}/{$image}\" alt=\"{$point} {$naviTitle}\" onMouseOver=\"Navi({$naviPos},'{$init->imgDir}/{$image}', '{$naviTitle}', '{$point}', '{$naviText}', {$naviExp});\" onMouseOut=\"NaviClose(); return false\">";
 
         // 座標設定 閉じ
         if ($mode == 1 || $mode == 2) {
@@ -1774,7 +1774,7 @@ class HakoEdit extends File
             $naviText = "{$comStr}\\n{$naviText}";
         }
 
-        echo "<img src=\"{$init->imgDir}/{$image}\" width=\"32\" height=\"32\" alt=\"{$point} {$naviTitle} {$comStr}\" onMouseOver=\"Navi({$naviPos}, '{$init->imgDir}/{$image}', '{$naviTitle}', '{$point}', '{$naviText}', {$naviExp});\" onMouseOut=\"NaviClose(); return false\">";
+        echo "<img src=\"{$init->imgDir}/{$image}\" alt=\"{$point} {$naviTitle} {$comStr}\" onMouseOver=\"Navi({$naviPos}, '{$init->imgDir}/{$image}', '{$naviTitle}', '{$point}', '{$naviText}', {$naviExp});\" onMouseOut=\"NaviClose(); return false\">";
 
         // 座標設定閉じ
         if ($mode == 1 || $mode == 2) {
