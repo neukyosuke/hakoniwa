@@ -51,7 +51,7 @@ trait FileIO
     {
     }
 
-    final private function mkfile(string $filepath, string $content = ""): bool
+    private function mkfile(string $filepath, string $content = ""): bool
     {
         $info = pathinfo($this->parse_path($filepath));
 
@@ -74,7 +74,7 @@ trait FileIO
 
 
 
-    final private function parse_path(string $path): string
+    private function parse_path(string $path): string
     {
         $segments = preg_split("/(\/|\\\\)/", $path);
         $parsed_path = [];
@@ -147,7 +147,7 @@ trait FileIO
 
 
 
-    final private function is_usable_path(string $path, bool $verbose = false): array
+    private function is_usable_path(string $path, bool $verbose = false): array
     {
         $stat = [
             "file" => false,
@@ -246,7 +246,7 @@ trait FileIO
 
 
 
-    final private function filelist(string $dir, array $exclude_prefix = []): array
+    private function filelist(string $dir, array $exclude_prefix = []): array
     {
         $rii =  new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(
@@ -315,7 +315,7 @@ trait FileIO
 
 
     // [TODO] move to \Util
-    final private function random_str(int $length = 8): string
+    private function random_str(int $length = 8): string
     {
         static $seeds;
 
@@ -331,7 +331,7 @@ trait FileIO
     }
 
     // [TODO] move to \
-    final private function starts_with(string $str, $prefix): bool
+    private function starts_with(string $str, $prefix): bool
     {
         $type = gettype($prefix);
         switch ($type) {
