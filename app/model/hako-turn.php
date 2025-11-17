@@ -2392,7 +2392,7 @@ class Turn
                                 switch ($tL) {
                                     case $init->landMountain:
                                         // 山
-                                        continue;
+                                        continue 2;
 
                                     case $init->landSbase:
                                     case $init->landSdefence:
@@ -2406,7 +2406,7 @@ class Turn
                                         $tLand[$tx][$ty] = $init->landSea;
                                         $tLandValue[$tx][$ty] = 1;
 
-                                        continue;
+                                        continue 2;
 
                                     case $init->landSea:
                                         // 海の場合
@@ -2439,7 +2439,7 @@ class Turn
                                             $tLandValue[$tx][$ty] = 1;
                                         }
 
-                                        continue;
+                                        continue 2;
 
                                     case $init->landMonster:
                                     case $init->landSleeper:
@@ -2450,7 +2450,7 @@ class Turn
                                         $tLandValue[$tx][$ty] = 0;
                                         $this->log->msLUMonster($id, $target, $name, $tName, $comName, $tLname, $point, $tPoint);
 
-                                        continue;
+                                        continue 2;
 
                                     default:
                                         // その他
@@ -3660,7 +3660,7 @@ class Turn
                             }
                             $landValue[$x][$y] = 0;
 
-                            continue;
+                            continue 2;
                         }
                         // 人口増
                     } elseif ($addpop !== 0) {
@@ -3699,7 +3699,7 @@ class Turn
                             $land[$x][$y] = $init->landPlains;
                             $landValue[$x][$y] = 0;
 
-                            continue;
+                            continue 2;
                         }
                         // 人口増
                     } elseif ($addpop !== 0) {
@@ -3730,7 +3730,7 @@ class Turn
                             $land[$x][$y] = $init->landPlains;
                             $landValue[$x][$y] = 0;
 
-                            continue;
+                            continue 2;
                         }
                     } else {
                         // 成長
@@ -3792,7 +3792,7 @@ class Turn
                             $land[$x][$y] = $init->landPlains;
                             $landValue[$x][$y] = 0;
 
-                            continue;
+                            continue 2;
                         }
                     } elseif ($addpop !== 0) {
                         // 成長
@@ -4898,10 +4898,10 @@ class Turn
         // Percent: 70, 15, 7, 5, 3.
         $rnd = Util::random(100);
         $island['tenki'] = ($rnd > 97) ? 5
-            : ($rnd > 92) ? 4
-            : ($rnd > 85) ? 3
-            : ($rnd > 70) ? 2
-            : 1;
+            : (($rnd > 92) ? 4
+            : (($rnd > 85) ? 3
+            : (($rnd > 70) ? 2
+            : 1)));
 
         // 日照り判定
         if ((Util::random(1000) < $init->disTenki) && ($island['tenki'] == 1)) {
