@@ -3868,10 +3868,12 @@ class Turn
 
                     break;
 
-                // 森
+                // 森（秋は成長+20%）
                 case $init->landForest:
                     if ($lv < 200) {
                         $lv = $island['zin'][3] == 1 ? 2 : 1;
+                        // 秋は森の成長+20%
+                        $lv = Util::applySeasonBonusToForest($GLOBALS['ISLAND_TURN'] ?? 0, $lv);
                         $landValue[$x][$y] = min($landValue[$x][$y] + $lv, 200);
                     }
 
@@ -4070,12 +4072,14 @@ class Turn
 
                     break;
 
-                // 遊園地
+                // 遊園地（夏は収入+30%）
                 case $init->landPark:
                     $lName = $this->landName($landKind, $lv);
                     //収益は人口増加とともに横ばい傾向
                     //人口の平方根の1～2倍 ex 1万=10～20億円 100万=100～200億円
                     $value = floor(sqrt($island['pop'])*((Util::random(100)/100)+1));
+                    // 夏は観光収入+30%
+                    $value = Util::applySeasonBonusToTourism($GLOBALS['ISLAND_TURN'] ?? 0, (int)$value);
                     $island['money'] += $value;
                     $str = $value.$init->unitMoney;
                     //収入ログ
@@ -5768,10 +5772,12 @@ class Turn
         // 収入
         // 農業従事者は最優先で確保。それ以外を工商業に割り当てる
 
-        // 農業（ジン所持時ブースト）
+        // 農業（ジン所持時ブースト、季節ボーナス）
         $farmer = min($pop, $farmer);
         $income = $farmer;
         $income *= ($island['zin'][5] == 1) ? 2 : 1;
+        // 春は農場生産+20%
+        $income = Util::applySeasonBonusToFarm($GLOBALS['ISLAND_TURN'] ?? 0, (int)$income);
         $island['food'] += $income;
 
         // 工商業従事予定者
@@ -5817,8 +5823,10 @@ class Turn
         }
 
         // 【固定消費】
-        // 食料
-        $island['food'] -= $pop * $init->eatenFood;
+        // 食料（冬は消費+10%）
+        $foodConsumption = $pop * $init->eatenFood;
+        $foodConsumption = Util::applySeasonPenaltyToFood($GLOBALS['ISLAND_TURN'] ?? 0, (int)$foodConsumption);
+        $island['food'] -= $foodConsumption;
 
         // 船舶の維持コスト
         $shipCost = 0;
@@ -6323,6 +6331,21 @@ class Turn
 
             case $init->landSsyoubou:
                 return '海底消防署';
+
+            case $init->landOnsen:
+                return '温泉';
+
+            case $init->landLab:
+                return '研究所';
+
+            case $init->landUniv:
+                return '大学';
+
+            case $init->landSpaceport:
+                return '宇宙港';
+
+            case $init->landResort:
+                return 'リゾート';
 
         }
     }

@@ -684,6 +684,100 @@ class Util
 
         return $s;
     }
+
+    /**
+     * 季節を取得（Phase 2新機能）
+     * @param int $turn ターン数
+     * @return int 季節 (0:春, 1:夏, 2:秋, 3:冬)
+     */
+    public static function getSeason(int $turn): int
+    {
+        $cycle = $turn % 100;
+        if ($cycle >= 1 && $cycle <= 25) {
+            return 0; // 春
+        } elseif ($cycle >= 26 && $cycle <= 50) {
+            return 1; // 夏
+        } elseif ($cycle >= 51 && $cycle <= 75) {
+            return 2; // 秋
+        } else {
+            return 3; // 冬
+        }
+    }
+
+    /**
+     * 季節名を取得（Phase 2新機能）
+     * @param int $season 季節
+     * @return string 季節名
+     */
+    public static function getSeasonName(int $season): string
+    {
+        $names = ['春', '夏', '秋', '冬'];
+        return $names[$season] ?? '春';
+    }
+
+    /**
+     * 季節ボーナスを農場生産に適用（Phase 2新機能）
+     * @param int $turn ターン数
+     * @param int $production 基本生産量
+     * @return int ボーナス適用後の生産量
+     */
+    public static function applySeasonBonusToFarm(int $turn, int $production): int
+    {
+        $season = self::getSeason($turn);
+        if ($season === 0) {
+            // 春: +20%
+            return (int)($production * 1.2);
+        }
+        return $production;
+    }
+
+    /**
+     * 季節ボーナスを観光収入に適用（Phase 2新機能）
+     * @param int $turn ターン数
+     * @param int $income 基本収入
+     * @return int ボーナス適用後の収入
+     */
+    public static function applySeasonBonusToTourism(int $turn, int $income): int
+    {
+        $season = self::getSeason($turn);
+        if ($season === 1) {
+            // 夏: +30%
+            return (int)($income * 1.3);
+        }
+        return $income;
+    }
+
+    /**
+     * 季節ボーナスを森林成長に適用（Phase 2新機能）
+     * @param int $turn ターン数
+     * @param int $growth 基本成長率
+     * @return int ボーナス適用後の成長率
+     */
+    public static function applySeasonBonusToForest(int $turn, int $growth): int
+    {
+        $season = self::getSeason($turn);
+        if ($season === 2) {
+            // 秋: +20%
+            return (int)($growth * 1.2);
+        }
+        return $growth;
+    }
+
+    /**
+     * 季節ペナルティを食料消費に適用（Phase 2新機能）
+     * @param int $turn ターン数
+     * @param int $consumption 基本消費量
+     * @return int ペナルティ適用後の消費量
+     */
+    public static function applySeasonPenaltyToFood(int $turn, int $consumption): int
+    {
+        $season = self::getSeason($turn);
+        if ($season === 3) {
+            // 冬: +10%
+            return (int)($consumption * 1.1);
+        }
+        return $consumption;
+    }
 }
 
 

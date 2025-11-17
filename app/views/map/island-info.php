@@ -34,12 +34,14 @@
         <tr>
             <th><?= $init->nameWeather ?></th>
             <td class="TenkiCell"><?= $sora ?></td>
+            <th>季節</th>
+            <td class="InfoCell"><?= $season ?></td>
             <th><?= $init->nameMilitaryTechnology ?></th>
             <td class="InfoCell"><?= $arm ?></td>
             <th><?= $init->nameMonsterExterminationNumber ?></th>
             <td class="InfoCell"><?= $taiji ?></td>
             <th><?= $init->nameSatellite ?></th>
-            <td class="ItemCell" colspan="4"><?= $eiseis ?></td>
+            <td class="ItemCell" colspan="2"><?= $eiseis ?></td>
         </tr>
         <tr>
             <th>ジン</th>

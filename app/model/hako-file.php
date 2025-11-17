@@ -1216,6 +1216,43 @@ class Hako extends File
                     $image = $init->monsterImage[$monsSpec['kind']];
                 }
                 $naviText = "怪獣{$monsSpec['name']}(体力{$monsSpec['hp']})";
+
+                break;
+
+            case $init->landOnsen:
+                // 温泉
+                $image = 'onsen.gif';
+                $naviTitle = '温泉';
+
+                break;
+
+            case $init->landLab:
+                // 研究所
+                $image = 'lab.gif';
+                $naviTitle = '研究所';
+
+                break;
+
+            case $init->landUniv:
+                // 大学
+                $image = 'univ.gif';
+                $naviTitle = '大学';
+
+                break;
+
+            case $init->landSpaceport:
+                // 宇宙港
+                $image = 'spaceport.gif';
+                $naviTitle = '宇宙港';
+
+                break;
+
+            case $init->landResort:
+                // リゾート
+                $image = 'resort.gif';
+                $naviTitle = 'リゾート';
+
+                break;
         }
 
         // 座標設定
@@ -1767,6 +1804,43 @@ class HakoEdit extends File
                     $image = $init->monsterImage[$monsSpec['kind']];
                 }
                 $naviText = "怪獣{$monsSpec['name']}(体力{$monsSpec['hp']})";
+
+                break;
+
+            case $init->landOnsen:
+                // 温泉
+                $image = 'onsen.gif';
+                $naviTitle = '温泉';
+
+                break;
+
+            case $init->landLab:
+                // 研究所
+                $image = 'lab.gif';
+                $naviTitle = '研究所';
+
+                break;
+
+            case $init->landUniv:
+                // 大学
+                $image = 'univ.gif';
+                $naviTitle = '大学';
+
+                break;
+
+            case $init->landSpaceport:
+                // 宇宙港
+                $image = 'spaceport.gif';
+                $naviTitle = '宇宙港';
+
+                break;
+
+            case $init->landResort:
+                // リゾート
+                $image = 'resort.gif';
+                $naviTitle = 'リゾート';
+
+                break;
         }
 
         if ($mode == 1 || $mode == 2) {

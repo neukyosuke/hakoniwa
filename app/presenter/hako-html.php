@@ -648,6 +648,11 @@ class HtmlMap extends HTML
         $_sora = ['','晴れ','曇り','雨','雷','雪'];
         $sora = '<img src="'.$init->imgDir.'/tenki'.$tenki.'.gif" alt="'.$_sora[$tenki].'" title="'.$_sora[$tenki].'" width="19" height="19">';
 
+        // Season information
+        $turn = $GLOBALS['ISLAND_TURN'] ?? 0;
+        $seasonName = Util::getSeasonName($turn);
+        $season = '<span title="'.$seasonName.'">'.$seasonName.'</span>';
+
         $eiseis = "";
         for ($e = 0; $e < $init->EiseiNumber; $e++) {
             $eiseip = "";
