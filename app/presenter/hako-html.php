@@ -2609,7 +2609,7 @@ END;
             $jsAllyMarkList .= "];\n";
             $jsAllyColorList .= "];\n";
         }
-        $str1 = $adminMode ? '（メンテナンス）' : $init->allyJoinComUse ? '' : '・加盟・脱退';
+        $str1 = $adminMode ? '（メンテナンス）' : ($init->allyJoinComUse ? '' : '・加盟・脱退');
 
         $makeCost = $init->costMakeAlly ? "{$init->costMakeAlly}{$init->unitMoney}" : '無料';
 
