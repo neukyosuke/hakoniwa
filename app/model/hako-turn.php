@@ -718,7 +718,7 @@ class Turn
                     break;
                 }
                 $land[$x][$y] = $init->landShip;
-                $landValue[$x][$y] = Util::navyPack($island['id'], $arg, $init->shipHP[$arg], 0, 0);
+                $landValue[$x][$y] = Util::navyPack((int)$island['id'], $arg, $init->shipHP[$arg], 0, 0);
                 $this->log->LandSuc($id, $name, $init->shipName[$arg]."の".$comName, $point);
 
                 // 金を差し引く
@@ -853,7 +853,7 @@ class Turn
                 if ($ship[1] == 2 && ($ship[1] > 0 || $ship[4] > 0)) {
                     // 帰還時に海底探索船の財宝を回収
                     $treasure = $ship[3] * 1000 + $ship[4] * 100;
-                    $tLandValue[$x][$y] = Util::navyPack($ship[0], $ship[1], $ship[2], 0, 0);
+                    $tLandValue[$x][$y] = Util::navyPack((int)$ship[0], $ship[1], $ship[2], 0, 0);
                     $island['money'] += $treasure;
                     $this->log->RecoveryTreasure($id, $name, $init->shipName[$ship[1]], $treasure);
                 }
@@ -2628,7 +2628,7 @@ class Turn
                                             $this->log->msGensyo($id, $target, $name, $tName, $comName, $tLname, $point, $tPoint);
                                         }
                                         $ship[2] -= 2;
-                                        $tLandValue[$tx][$ty] = Util::navyPack($ship[0], $ship[1], $ship[2], $ship[3], $ship[4]);
+                                        $tLandValue[$tx][$ty] = Util::navyPack((int)$ship[0], $ship[1], $ship[2], $ship[3], $ship[4]);
                                     } else {
                                         $tLand[$tx][$ty] = $init->landSea;
                                         $tLandValue[$tx][$ty] = 0;
@@ -4555,7 +4555,7 @@ class Turn
                                             // 他島所属であれば積載して帰還するまで回収しない
                                             $ship[3] = round($landValue[$sx][$sy] / 1000);
                                             $ship[4] = round(($landValue[$sx][$sy] - $ship[3] * 1000) /100);
-                                            $landValue[$x][$y] = Util::navyPack($ship[0], $ship[1], $ship[2], $ship[3], $ship[4]);
+                                            $landValue[$x][$y] = Util::navyPack((int)$ship[0], $ship[1], $ship[2], $ship[3], $ship[4]);
                                         }
                                         $tName = $hako->idToName[$ship[0]];
                                         $this->log->FindTreasure($id, $ship[0], $name, $tName, "($x,$y)", $init->shipName[$ship[1]], $landValue[$sx][$sy]);
@@ -4651,7 +4651,7 @@ class Turn
                                                 }
                                             } else {
                                                 // 海賊船にダメージ与えた
-                                                $landValue[$sx][$sy] = Util::navyPack($tShip[0], $tShip[1], $tShip[2], $tShip[3], $tShip[4]);
+                                                $landValue[$sx][$sy] = Util::navyPack((int)$tShip[0], $tShip[1], $tShip[2], $tShip[3], $tShip[4]);
                                                 $this->log->SenkanAttack($id, $ship[0], $name, $tName, $init->shipName[$ship[1]], "($x,$y)", "($sx,$sy)", $tshipName);
                                             }
 
@@ -4678,7 +4678,7 @@ class Turn
                             $ship[3] = $treasure / 1000;
                             $ship[4] = ($treasure - $ship[1] * 1000) / 100;
                             // 海賊船ステータス更新
-                            $landValue[$x][$y] = Util::navyPack($ship[0], $ship[1], $ship[2], $ship[3], $ship[4]);
+                            $landValue[$x][$y] = Util::navyPack((int)$ship[0], $ship[1], $ship[2], $ship[3], $ship[4]);
                         }
                         // 攻撃
                         //周囲2hex以内に港または船舶または海上都市あり
@@ -4722,7 +4722,7 @@ class Turn
                                                 break;
                                             } else {
                                                 // 船舶ダメージ
-                                                $landValue[$sx][$sy] = Util::navyPack($tShip[0], $tShip[1], $tShip[2], $tShip[3], $tShip[4]);
+                                                $landValue[$sx][$sy] = Util::navyPack((int)$tShip[0], $tShip[1], $tShip[2], $tShip[3], $tShip[4]);
                                                 $this->log->VikingAttack($id, $tShip[0], $name, $tName, $init->shipName[$ship[1]], "($x,$y)", "($sx,$sy)", $tshipName);
 
                                                 break;
@@ -4775,7 +4775,7 @@ class Turn
                         } else {
                             // 移動
                             $land[$sx][$sy] = $land[$x][$y];
-                            $landValue[$sx][$sy] = Util::navyPack($ship[0], $ship[1], $ship[2], $ship[3], $ship[4]);
+                            $landValue[$sx][$sy] = Util::navyPack((int)$ship[0], $ship[1], $ship[2], $ship[3], $ship[4]);
                             if ($ship[1] == 2) {
                                 if ((Util::random(100) < 7) && ($island['tenki'] == 1) &&
                                 ($island['item'][18] == 1) && ($island['item'][19] != 1)) {
