@@ -411,8 +411,11 @@ class Util
         //  4  フラグ
         // 20  合計
 
+        // Ensure $id is an integer
+        $id = (int)$id;
+
         if ($id>0x1f) {
-            throw new Exception("船籍ID不正", 1);
+            throw new Exception("船籍ID不正: ID={$id} (type: " . gettype($id) . "), max=31", 1);
         }
 
         $exp  = min($exp, 15);
