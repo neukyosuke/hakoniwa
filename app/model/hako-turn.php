@@ -1,6 +1,9 @@
 <?php
 
-require_once 'config.php';
+// Ensure constants are defined by loading config if necessary
+if (!defined('APP')) {
+    require_once __DIR__.'/../../config.php';
+}
 
 require_once APP.'/model/hako-log.php';
 require_once APP.'/model/hako-make.php';
