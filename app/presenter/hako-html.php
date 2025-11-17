@@ -827,8 +827,8 @@ END;
 
         $island = $hako->islands[$number];
         $name   = Util::islandName($island, $hako->ally, $hako->idToAllyNumber);
-        $width  = $init->islandSize * 32 + 50;
-        $height = $init->islandSize * 32 + 100;
+        $width  = $init->islandSize * 40 + 50;
+        $height = $init->islandSize * 40 + 100;
         $defaultTarget = $init->targetIsland == 1 ? $island['id'] : $hako->defaultTarget;
 
         require_once VIEWS.'/map/development/basic.php';
@@ -1135,8 +1135,8 @@ class HtmlMapJS extends HtmlMap
 
         $island = $hako->islands[$number];
         $name = Util::islandName($island, $hako->ally, $hako->idToAllyNumber);
-        $width = $init->islandSize * 32 + 50;
-        $height = $init->islandSize * 32 + 100;
+        $width = $init->islandSize * 40 + 50;
+        $height = $init->islandSize * 40 + 100;
 
         // コマンドセット
         $set_com = "";
@@ -2165,8 +2165,8 @@ class HtmlPresent extends HTML
         $this_file = $init->baseDir . "/hako-present.php";
         $main_file = $init->baseDir . "/hako-main.php";
 
-        $width  = $init->islandSize * 32 + 50;
-        $height = $init->islandSize * 32 + 100;
+        $width  = $init->islandSize * 40 + 50;
+        $height = $init->islandSize * 40 + 100;
         $defaultTarget = '';
 
         require_once VIEWS.'/admin/present/main.php';
