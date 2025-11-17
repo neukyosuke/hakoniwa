@@ -375,12 +375,12 @@ class Util
 
         // bit 意味
         //-----------
-        //  5  島ID
+        // 10  島ID (0-1023)
         //  3  種類
         //  4  耐久力
         //  4  経験値
         //  4  フラグ
-        // 20  合計
+        // 25  合計
 
         $flag = $lv & 0x0f;
         $lv >>= 4;
@@ -390,7 +390,7 @@ class Util
         $lv >>= 4;
         $kind = $lv & 0x07;
         $lv >>= 3;
-        $id   = $lv & 0x1f;
+        $id   = $lv & 0x3ff;  // 10 bits: 0x3ff = 1023
 
         return [$id, $kind, $hp, $exp, $flag];
     }
@@ -404,22 +404,25 @@ class Util
 
         // bit 意味
         //-----------
-        //  5  島ID
+        // 10  島ID (0-1023)
         //  3  種類
         //  4  耐久力
         //  4  経験値
         //  4  フラグ
-        // 20  合計
+        // 25  合計
 
-        if ($id>0x1f) {
-            throw new Exception("船籍ID不正", 1);
+        // Ensure $id is an integer
+        $id = (int)$id;
+
+        if ($id > 0x3ff) {  // 0x3ff = 1023
+            throw new Exception("船籍ID不正: ID={$id}, max=1023", 1);
         }
 
         $exp  = min($exp, 15);
         $flag = min($flag, 15);
 
         $lv   = 0;
-        $lv |= $id   & 0x1f;
+        $lv |= $id   & 0x3ff;  // 10 bits
         $lv <<= 3;
         $lv |= $kind & 0x07;
         $lv <<= 4;
