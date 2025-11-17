@@ -4195,7 +4195,7 @@ class Turn
                             $init->landSeaCity, $init->landFroCity, $init->landSsyoubou, $init->landSfarm,
                             $init->landOil
                         ];
-                        if (in_array($land[$sx][$sy], $candidates)) {
+                        if (in_array($land[$sx][$sy], $candidates, true)) {
                             break;
                         }
                     }
@@ -4294,7 +4294,7 @@ class Turn
                         for ($ii = 0; $ii < $init->pointNumber; $ii++) {
                             $bx = $this->rpx[$ii];
                             $by = $this->rpy[$ii];
-                            if (in_array($land[$bx][$by], $candidates)) {
+                            if (in_array($land[$bx][$by], $candidates, true)) {
                                 // 地形名
                                 $lName = $this->landName($land[$bx][$by], $landValue[$bx][$by]);
                                 // そのヘックスを怪獣に
@@ -4345,7 +4345,7 @@ class Turn
                                     $init->landNursery, $init->landOil, $init->landPort, $init->landMountain,
                                     $init->landMonument, $init->landZorasu, $init->landSleeper, $init->landMonster
                                 ];
-                                if (!in_array($tLand[$bx][$by], $candidates)) {
+                                if (!in_array($tLand[$bx][$by], $candidates, true)) {
                                     break;
                                 }
                             }
@@ -5136,7 +5136,7 @@ class Turn
                 if (($landKind == $init->landSea) && ($lv == 0)) {
                     // 海賊船登場
                     $land[$x][$y] = $init->landShip;
-                    $landValue[$x][$y] = Util::navyPack(0, array_search('海賊船', $init->shipName), $init->shipHP[10], 0, 0);
+                    $landValue[$x][$y] = Util::navyPack(0, array_search('海賊船', $init->shipName, true), $init->shipHP[10], 0, 0);
                     $this->log->VikingCome($id, $name, "($x,$y)");
 
                     break;
@@ -5280,7 +5280,7 @@ class Turn
                     $bx = $this->rpx[$i];
                     $by = $this->rpy[$i];
 
-                    if (in_array($land[$bx][$by], $candidates)) {
+                    if (in_array($land[$bx][$by], $candidates, true)) {
                         // 地形名
                         $lName = $this->landName($land[$bx][$by], $landValue[$bx][$by]);
                         // そのヘックスを怪獣に

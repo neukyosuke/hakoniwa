@@ -291,8 +291,8 @@ class Log extends LogIO
     // 死滅
     public function dead($name): void
     {
-        $this->out("{$this->init->tagName_}${name}{$this->init->nameSuffix}{$this->init->_tagName}から人がいなくなり、<strong>滅亡</strong>しました。");
-        $this->history("{$this->init->tagName_}${name}{$this->init->nameSuffix}{$this->init->_tagName}、人がいなくなり<strong>滅亡</strong>する。");
+        $this->out("{$this->init->tagName_}{$name}{$this->init->nameSuffix}{$this->init->_tagName}から人がいなくなり、<strong>滅亡</strong>しました。");
+        $this->history("{$this->init->tagName_}{$name}{$this->init->nameSuffix}{$this->init->_tagName}、人がいなくなり<strong>滅亡</strong>する。");
     }
     // 島の強制削除
     public function deleteIsland($name): void

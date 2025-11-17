@@ -135,7 +135,8 @@ trait FileIO
                 $path_prefix = "";
                 $parsed_path[0] = mb_strtoupper($parsed_path[0]);
             } else {
-                $path_prefix = mb_substr($cwd, 0, mb_strpos($cwd, ":") + 1).$s;
+                $colon_pos = mb_strpos($cwd, ":");
+                $path_prefix = mb_substr($cwd, 0, ($colon_pos !== false ? $colon_pos : 0) + 1).$s;
             }
         } else {
             $path_prefix = $s;

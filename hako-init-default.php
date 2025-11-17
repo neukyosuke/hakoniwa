@@ -947,6 +947,6 @@ class InitDefault
     {
         $this->CPU_start = microtime();
         $this->setpubliciable();
-        mt_srand($_SERVER['REQUEST_TIME']);
+        // mt_srand() is deprecated in PHP 8.2+ and unnecessary (auto-seeded)
     }
 }
