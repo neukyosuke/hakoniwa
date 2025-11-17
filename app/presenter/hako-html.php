@@ -6,6 +6,11 @@
  * @author hiro <@hiro0218>
  */
 
+// Ensure constants are defined by loading config if necessary
+if (!defined('HELPER')) {
+    require_once __DIR__.'/../../config.php';
+}
+
 require_once HELPER.'/message/error.php';
 require_once HELPER.'/message/success.php';
 require_once APP.'/model/hako-log.php';
