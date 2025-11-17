@@ -1,6 +1,12 @@
 <?php
 
 declare(strict_types=1);
+
+// Prevent double inclusion
+if (defined('APP')) {
+    return;
+}
+
 /**
  * Re:箱庭諸島
  * @copyright 2017 Re:箱庭諸島
