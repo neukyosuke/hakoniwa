@@ -358,7 +358,7 @@ class InitDefault
     public $monsterLevel4  = 23;    // 迎撃いのらまで
     public $monsterLevel5  = 26;    // インベーダーまで
 
-    public $monsterNumber  = 27;    // 怪獣の種類
+    public $monsterNumber  = 30;    // 怪獣の種類（27→30に増加）
     // 怪獣の名前
     public $monsterName = [
         'メカいのら',         # 0
@@ -388,6 +388,10 @@ class InitDefault
         'ハートいのら',       # 24
         '姫いのら',           # 25
         'インベーダー',       # 26
+        // === Phase 1: 新怪獣 ===
+        '古代龍',             # 27
+        'メカゴジラ',         # 28
+        '深海クラーケン',     # 29
     ];
     // 怪獣の画像（硬化中の差分）
     public $monsterImage   = [
@@ -396,7 +400,9 @@ class InitDefault
         'kouka.gif', 'kouka.gif', '', 'kouka1.gif', '',
         'kouka3.gif', 'kouka3.gif', 'kouka2.gif', '', '',
         '', '', '', '', '',
-        '', ''
+        '', '',
+        // === Phase 1: 新怪獣画像 ===
+        'kouka.gif', 'kouka.gif', '' // 古代龍、メカゴジラ、深海クラーケン
     ];
     // 最低体力
     public $monsterBHP = [
@@ -405,7 +411,9 @@ class InitDefault
         3, 3, 9, 5, 4,
         4, 3, 5, 9, 4,
         5, 6, 6, 7, 8,
-        5, 99
+        5, 99,
+        // === Phase 1: 新怪獣体力 ===
+        15, 20, 18 // 古代龍、メカゴジラ、深海クラーケン
     ];
     // 体力の幅
     public $monsterDHP = [
@@ -414,7 +422,9 @@ class InitDefault
         2, 2, 0, 1, 2,
         1, 2, 2, 0, 3,
         2, 2, 2, 2, 1,
-        0, 0
+        0, 0,
+        // === Phase 1: 新怪獣体力幅 ===
+        3, 2, 3 // 古代龍、メカゴジラ、深海クラーケン
     ];
     // 特殊能力概要：(ビット和フラグ)
     // 0x00000 特になし
@@ -438,7 +448,9 @@ class InitDefault
         0x11, 0x10, 0x40, 0x4, 0x200,
         0x20000, 0x410, 0x5, 0x240, 0x1020,
         0x2020, 0x4400, 0x10100, 0x101, 0x21,
-        0x2121, 0x42
+        0x2121, 0x42,
+        // === Phase 1: 新怪獣特殊能力 ===
+        0x02001, 0x04100, 0x00200 // 古代龍（森増やす+速い）、メカゴジラ（金減らす+迎撃）、深海クラーケン（飛行）
     ];
     // 特殊能力「分裂する」の発生割合（単位：0.1%）
     public $rateMonsterDivision = 100;
@@ -449,7 +461,9 @@ class InitDefault
         10, 9, 30, 13, 15,
         10, 25, 22, 40, 45,
         43, 50, 50, 48, 60,
-        100, 200
+        100, 200,
+        // === Phase 1: 新怪獣経験値 ===
+        80, 90, 85 // 古代龍、メカゴジラ、深海クラーケン
     ];
     // 死骸の値段
     public $monsterValue = [
@@ -458,9 +472,44 @@ class InitDefault
         800, 700, 2000, 900, 1000,
         300, 1800, 1200, 2500, 3000,
         2700, 5000, 4000, 3500, 7000,
-        10000, 50000
+        10000, 50000,
+        // === Phase 1: 新怪獣死骸価値 ===
+        8000, 9000, 8500 // 古代龍、メカゴジラ、深海クラーケン
     ];
 
+
+    //---------------------------------------------------
+    // === Phase 1+2: アイテムシステム ===
+    //---------------------------------------------------
+    // アイテムの種類
+    public $itemNumber = 5;
+    public $itemName = [
+        '古代の盾',      // 0: 怪獣攻撃を1回無効化
+        '黄金の鍬',      // 1: 農場生産+50%
+        '青い宝石',      // 2: 売却で大金獲得
+        'タイムカプセル', // 3: 過去のターンに戻れる（未実装）
+        '魔法の杖',      // 4: ランダムイベント発生
+    ];
+    public $itemEffect = [
+        'monster_shield',  // 0
+        'farm_boost',      // 1
+        'money_gem',       // 2
+        'time_capsule',    // 3
+        'magic_wand',      // 4
+    ];
+
+    //---------------------------------------------------
+    // === Phase 2: 季節システム ===
+    //---------------------------------------------------
+    // 季節の効果（ターン番号 % 100で判定）
+    // 春（1-25ターン）：農場生産+20%
+    // 夏（26-50ターン）：観光収入+30%
+    // 秋（51-75ターン）：森林成長+20%
+    // 冬（76-100ターン）：食料消費+10%
+    public $seasonSpring = [1, 25];   // 春
+    public $seasonSummer = [26, 50];  // 夏
+    public $seasonAutumn = [51, 75];  // 秋
+    public $seasonWinter = [76, 100]; // 冬
 
     //---------------------------------------------------
     // 賞に関する設定
@@ -597,6 +646,12 @@ class InitDefault
     public $landSoukoM    = 41; // 金庫
     public $landSoukoF    = 42; // 食料庫
     public $landShip      = 43; // 船舶
+    // === Phase 1+2: 新地形 ===
+    public $landHotspring = 44; // 温泉
+    public $landResearch  = 45; // 研究所
+    public $landUniversity= 46; // 大学
+    public $landSpaceport = 47; // 宇宙港
+    public $landResort    = 48; // リゾート
 
     /********************
         コマンド
@@ -616,7 +671,7 @@ class InitDefault
     // ○→ '開発,0,10',   # 計画番号00～10
     // ×→ '開発, 0,10', # 計画番号00～10
 
-    public $commandTotal = 68; // コマンドの種類
+    public $commandTotal = 73; // コマンドの種類（68→73に増加）
 
     // 順序
     public $comList;
@@ -664,6 +719,12 @@ class InitDefault
     public $comMyhome       = 43; // 自宅建設
     public $comSoukoM       = 44; // 金庫
     public $comSoukoF       = 45; // 食料庫
+    // === Phase 1+2: 新コマンド（新施設建設） ===
+    public $comHotspring    = 46; // 温泉建設
+    public $comResearch     = 47; // 研究所建設
+    public $comUniversity   = 48; // 大学建設
+    public $comSpaceport    = 49; // 宇宙港建設
+    public $comResort       = 50; // リゾート建設
 
     // サッカー系
     public $comOffense      = 51; // 攻撃力強化
@@ -873,6 +934,17 @@ class InitDefault
         $this->comCost[$this->comSoukoM]       = 1000;
         $this->comName[$this->comSoukoF]       = '食料庫建設';
         $this->comCost[$this->comSoukoF]       = -1000;
+        // === Phase 1+2: 新施設コマンド ===
+        $this->comName[$this->comHotspring]    = '温泉建設';
+        $this->comCost[$this->comHotspring]    = 3000;
+        $this->comName[$this->comResearch]     = '研究所建設';
+        $this->comCost[$this->comResearch]     = 5000;
+        $this->comName[$this->comUniversity]   = '大学建設';
+        $this->comCost[$this->comUniversity]   = 8000;
+        $this->comName[$this->comSpaceport]    = '宇宙港建設';
+        $this->comCost[$this->comSpaceport]    = 10000;
+        $this->comName[$this->comResort]       = 'リゾート建設';
+        $this->comCost[$this->comResort]       = 6000;
         $this->comName[$this->comMonument]     = '記念碑建造';
         $this->comCost[$this->comMonument]     = 9999;
         $this->comName[$this->comHaribote]     = 'ハリボテ設置';
