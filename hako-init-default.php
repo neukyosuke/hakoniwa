@@ -341,6 +341,10 @@ class InitDefault
     public $disPooPop     = 500; // 暴動発生の人口閾値
     public $disFalldown   =  30; // 地盤沈下
     public $disFallBorder = 150; // 地盤沈下発生の面積閾値
+    // === Phase 3: 新災害 ===
+    public $disDrought    =  15; // 干ばつ（確率：1.5%）
+    public $droughtDuration = 3; // 干ばつ継続ターン数
+    public $droughtEffect = 0.5; // 干ばつ時の農場生産倍率（50%減）
 
     //---------------------------------------------------
     // 怪獣に関する設定

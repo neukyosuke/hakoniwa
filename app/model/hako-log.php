@@ -995,6 +995,15 @@ class Log extends LogIO
     {
         $this->out("<A href=\"{$this->this_file}?Sight={$id}\">{$this->init->tagName_}{$name}{$this->init->nameSuffix}</A>{$point}{$this->init->_tagName}の<strong>{$lName}</strong>は{$this->init->tagDisaster_}台風{$this->init->_tagDisaster}で飛ばされました。", $id);
     }
+    // === Phase 3: 干ばつ ===
+    public function drought($id, $name): void
+    {
+        $this->out("<A href=\"{$this->this_file}?Sight={$id}\">{$this->init->tagName_}{$name}{$this->init->nameSuffix}</A>{$this->init->_tagName}で{$this->init->tagDisaster_}干ばつ{$this->init->_tagDisaster}が発生！農場の生産量が大幅に減少します（3ターン継続）。", $id);
+    }
+    public function droughtEnd($id, $name): void
+    {
+        $this->out("<A href=\"{$this->this_file}?Sight={$id}\">{$this->init->tagName_}{$name}{$this->init->nameSuffix}</A>{$this->init->_tagName}の{$this->init->tagDisaster_}干ばつ{$this->init->_tagDisaster}が終息しました。", $id);
+    }
     // ストライキ
     public function Sto($id, $name, $lName, $point): void
     {

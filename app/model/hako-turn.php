@@ -5398,6 +5398,20 @@ class Turn
             }
         }
 
+        // === Phase 3: 干ばつ判定 ===
+        if (Util::random(1000) < $init->disDrought) {
+            // 干ばつ発生
+            $island['droughtCounter'] = $init->droughtDuration;
+            $this->log->drought($id, $name);
+        }
+        // 干ばつカウンター減少
+        if (isset($island['droughtCounter']) && $island['droughtCounter'] > 0) {
+            $island['droughtCounter']--;
+            if ($island['droughtCounter'] == 0) {
+                $this->log->droughtEnd($id, $name);
+            }
+        }
+
         // 巨大隕石判定
         if (((Util::random(1000) < ($init->disHugeMeteo - (int)($island['eisei'][2] / 50))) && ($island['isBF'] != 1))
             || ($presentItem == 6)) {
@@ -5809,14 +5823,21 @@ class Turn
         $season = $this->getCurrentSeason($island['turn']);
         $seasonFarmBonus = $this->getSeasonBonus($season, 'farm');
 
+        // === Phase 3: 干ばつ効果 ===
+        $droughtPenalty = 1.0;
+        if (isset($island['droughtCounter']) && $island['droughtCounter'] > 0) {
+            $droughtPenalty = $init->droughtEffect; // 0.5 = 50%減
+        }
+
         // 収入
         // 農業従事者は最優先で確保。それ以外を工商業に割り当てる
 
-        // 農業（ジン所持時ブースト + 季節ボーナス）
+        // 農業（ジン所持時ブースト + 季節ボーナス - 干ばつペナルティ）
         $farmer = min($pop, $farmer);
         $income = $farmer;
         $income *= ($island['zin'][5] == 1) ? 2 : 1;
         $income *= $seasonFarmBonus; // 春: +20%
+        $income *= $droughtPenalty; // 干ばつ: -50%
         $island['food'] += $income;
 
         // 工商業従事予定者
