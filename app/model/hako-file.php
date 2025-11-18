@@ -13,16 +13,16 @@ class File
     public $islandLastTime;  // 最終更新時刻
     public $islandNumber;    // 島の総数
     public $islandNextID;    // 次に割り当てる島ID
-    public $islands;         // 全島の情報を格納
-    public $idToNumber;
-    public $idToName;
+    public $islands = [];    // 全島の情報を格納
+    public $idToNumber = [];
+    public $idToName = [];
     public $islandNumberBF;   // BFに設定されている島の数
     public $islandNumberNoBF; // 普通の島の数
     public $islandNumberKP;   // 管理人預かりに設定されている島の数
     public $islandNumberNoKP; // 普通の島の数
     public $allyNumber;       // 同盟の総数
-    public $ally;             // 各同盟の情報を格納
-    public $idToAllyNumber;
+    public $ally = [];        // 各同盟の情報を格納
+    public $idToAllyNumber = [];
 
     /**
      * String csv to integers array
@@ -1075,7 +1075,7 @@ class Hako extends File
                     $level = Util::expToLevel($l, $lv);
                     $image = 'land9.gif';
                     $naviTitle = 'ミサイル基地';
-                    $naviText = "Lv:${level} / EXP:{$lv}";
+                    $naviText = "Lv:{$level} / EXP:{$lv}";
                 }
 
                 break;
@@ -1090,7 +1090,7 @@ class Hako extends File
                     $level = Util::expToLevel($l, $lv);
                     $image = 'land12.gif';
                     $naviTitle = '海底基地';
-                    $naviText = "レベル ${level} / 経験値 {$lv}";
+                    $naviText = "レベル {$level} / 経験値 {$lv}";
                 }
 
                 break;
@@ -1480,7 +1480,7 @@ class HakoEdit extends File
                 // 森
                 if ($mode == 1) {
                     $image = 'land6.gif';
-                    $naviText= "${lv}{$init->unitTree}";
+                    $naviText= "{$lv}{$init->unitTree}";
                 } else {
                     // 観光者の場合は木の本数隠す
                     $image = 'land6.gif';
@@ -1625,7 +1625,7 @@ class HakoEdit extends File
                     $level = Util::expToLevel($l, $lv);
                     $image = 'land9.gif';
                     $naviTitle = 'ミサイル基地';
-                    $naviText = "レベル ${level} / 経験値 {$lv}";
+                    $naviText = "レベル {$level} / 経験値 {$lv}";
                 }
 
                 break;
@@ -1639,7 +1639,7 @@ class HakoEdit extends File
                     $level = Util::expToLevel($l, $lv);
                     $image = 'land12.gif';
                     $naviTitle = '海底基地';
-                    $naviText = "レベル ${level} / 経験値 {$lv}";
+                    $naviText = "レベル {$level} / 経験値 {$lv}";
                 }
 
                 break;
