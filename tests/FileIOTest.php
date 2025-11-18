@@ -65,14 +65,13 @@ final class FileIOTest extends TestCase
             yield "for Linux... #8" => ["/foo/with space/bar.ext", "/foo/with space/bar.ext"];
             yield "for Linux... #9" => [getcwd()."/foo/bar.ext", "./foo/bar.ext"];
             yield "for Linux... #10" => [mb_substr(getcwd(), 0, mb_strrpos(getcwd(), "/"))."/foo.ext", "./../foo.ext"];
-            yield "for Linux... #11" => [getenv("USERPROFILE", true)."/foo.ext", "~/foo.ext"];
+            yield "for Linux... #11" => [$_SERVER["HOME"]."/foo.ext", "~/foo.ext"];
         }
     }
 
 
 
     /**
-     * @requires OSFAMILY Linux
      * @dataProvider asset4ParsePathForThrowError
      */
     public function testParsePathForThrowError(string $path, string $errorClass): void
@@ -86,7 +85,9 @@ final class FileIOTest extends TestCase
     public function asset4ParsePathForThrowError()
     {
         yield "test #1" => ["/foo/C:/bar", \RuntimeException::class];
-        yield "test #2" => ["C:\\foo", \InvalidArgumentException::class];
+        if (!WINDOWS) {
+            yield "test #2" => ["C:\\foo", \InvalidArgumentException::class];
+        }
     }
 
 
