@@ -231,13 +231,13 @@ class Util
                     if (!array_key_exists("islandTurn", $opt)) {
                         throw new \InvalidArgumentException("You must set \$opt['islandTurn'] when you'll check `newbie`.");
                     }
-                    if (($opt["islandTurn"] - $island['starturn']) < $init->noAssist) {
+                    if ($island && isset($island['starturn']) && ($opt["islandTurn"] - $island['starturn']) < $init->noAssist) {
                         $match = true;
                     }
 
                     break;
                 case "sleep": // "keep"
-                    if ($island["keep"]) {
+                    if ($island && isset($island["keep"]) && $island["keep"]) {
                         $match = true;
                     }
 
@@ -250,7 +250,7 @@ class Util
                     if (!property_exists($init, $level)) {
                         throw new \InvalidArgumentException("Don't exist `\$init->{$level}`, probably wrong \$opt['level'] (=> {$opt['level']})?");
                     }
-                    if ($island["pop"] >= $init->$level) {
+                    if ($island && isset($island["pop"]) && $island["pop"] >= $init->$level) {
                         $match = true;
                     }
                     unset($level);
