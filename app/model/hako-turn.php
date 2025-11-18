@@ -4039,7 +4039,7 @@ class Turn
                     $lName = $this->landName($landKind, $lv);
                     $value = $init->oilMoney;
                     $island['money'] += $value;
-                    $island['oilincome'] += $value;
+                    $island['oilincome'] = ($island['oilincome'] ?? 0) + $value;
 
                     // 枯渇判定
                     if (Util::random(1000) < $init->oilRatio) {
@@ -4130,7 +4130,7 @@ class Turn
                 // 電車
                 case $init->landTrain:
                     // すでに動いた後
-                    if ($TrainMove[$x][$y] == 1) {
+                    if (isset($TrainMove[$x][$y]) && $TrainMove[$x][$y] == 1) {
                         break;
                     }
                     // 動く方向を決定
@@ -4171,7 +4171,7 @@ class Turn
 
                 // 海怪獣（ぞらす）
                 case $init->landZorasu:
-                    if ($ZorasuMove[$x][$y] == 1) {
+                    if (isset($ZorasuMove[$x][$y]) && $ZorasuMove[$x][$y] == 1) {
                         // すでに動いた後
                         break;
                     }
@@ -4324,15 +4324,15 @@ class Turn
                             $tIsland =& $hako->islands[$targ_idx];
                             // 初心者期間 / 凍結中 / 当該怪獣発生条件未達 の島にはワープさせない
                             // （自島にワープ；ただしBFを除く）
-                            if ($tIsland["isBF"]) {
+                            if (isset($tIsland["isBF"]) && $tIsland["isBF"]) {
                                 // noop
-                            } elseif (Util::hasIslandAttribute($tIsland, ["newbie", "sleep", "monster"], ["islandTurn" => $hako->islandTurn, "level" => $monsSpec["rank"]])) {
+                            } elseif (!$tIsland || Util::hasIslandAttribute($tIsland, ["newbie", "sleep", "monster"], ["islandTurn" => $hako->islandTurn, "level" => $monsSpec["rank"]])) {
                                 $tIsland =& $island;
                             }
 
                             // ワープ地点を決める
-                            $tId   = $tIsland['id'];
-                            $tName = $tIsland['name'];
+                            $tId   = $tIsland['id'] ?? null;
+                            $tName = $tIsland['name'] ?? '';
                             $tLand      =& $tIsland['land'];
                             $tLandValue =& $tIsland['landValue'];
                             for ($w = 0; $w < $init->pointNumber; $w++) {
@@ -4345,7 +4345,7 @@ class Turn
                                     $init->landNursery, $init->landOil, $init->landPort, $init->landMountain,
                                     $init->landMonument, $init->landZorasu, $init->landSleeper, $init->landMonster
                                 ];
-                                if (!in_array($tLand[$bx][$by], $candidates, true)) {
+                                if (isset($tLand[$bx][$by]) && !in_array($tLand[$bx][$by], $candidates, true)) {
                                     break;
                                 }
                             }
@@ -4520,7 +4520,7 @@ class Turn
                     $tIsland = &$hako->islands[$tn];
                     $tName = &$hako->idToName[$ship[0]];
 
-                    if ($init->shipCost[$ship[1]] > $tIsland['money'] && $ship[0] != 0) {
+                    if ($init->shipCost[$ship[1]] > ($tIsland['money'] ?? 0) && $ship[0] != 0) {
                         // 維持費を払えなくなり海の藻屑となる
                         $this->log->ShipRelease($id, $ship[0], $name, $tName, "($x,$y)", $init->shipName[$ship[1]]);
                         $land[$x][$y] = $init->landSea;
@@ -5872,8 +5872,14 @@ class Turn
                     if ($ship[0] != 0) {
                         $tn = $hako->idToNumber[$ship[0]];
                         $tIsland = &$hako->islands[$tn];
+                        if (!isset($tIsland['ship'][$ship[1]])) {
+                            $tIsland['ship'][$ship[1]] = 0;
+                        }
                         $tIsland['ship'][$ship[1]]++;
                     } else {
+                        if (!isset($island['ship'][$ship[1]])) {
+                            $island['ship'][$ship[1]] = 0;
+                        }
                         $island['ship'][$ship[1]]++;
                     }
                 }
