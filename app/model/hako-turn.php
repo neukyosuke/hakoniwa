@@ -18,6 +18,46 @@ class Turn
     public $rpy;
 
     /**
+     * === Phase 2: 季節システム ===
+     * 現在の季節を取得
+     * @param int $turn ターン番号
+     * @return string 'spring'|'summer'|'autumn'|'winter'
+     */
+    private function getCurrentSeason(int $turn): string
+    {
+        global $init;
+        $cycleTurn = ($turn - 1) % 100 + 1; // 1-100のサイクル
+
+        if ($cycleTurn >= $init->seasonSpring[0] && $cycleTurn <= $init->seasonSpring[1]) {
+            return 'spring';
+        } elseif ($cycleTurn >= $init->seasonSummer[0] && $cycleTurn <= $init->seasonSummer[1]) {
+            return 'summer';
+        } elseif ($cycleTurn >= $init->seasonAutumn[0] && $cycleTurn <= $init->seasonAutumn[1]) {
+            return 'autumn';
+        } else {
+            return 'winter';
+        }
+    }
+
+    /**
+     * 季節ボーナスを取得
+     * @param string $season 季節
+     * @param string $type ボーナスタイプ ('farm'|'tourism'|'forest'|'food_cost')
+     * @return float 倍率 (1.0 = 変化なし, 1.2 = +20%)
+     */
+    private function getSeasonBonus(string $season, string $type): float
+    {
+        $bonuses = [
+            'spring' => ['farm' => 1.2],        // 農場生産+20%
+            'summer' => ['tourism' => 1.3],     // 観光収入+30%
+            'autumn' => ['forest' => 1.2],      // 森林成長+20%
+            'winter' => ['food_cost' => 1.1],   // 食料消費+10%
+        ];
+
+        return $bonuses[$season][$type] ?? 1.0;
+    }
+
+    /**
      * ターン進行
      *
      * 最終更新時刻の更新→ ログファイル更新準備→ 収支計算→
@@ -5765,13 +5805,18 @@ class Turn
          * 電力      1,000kw -> 10,00人分
          */
 
+        // === Phase 2: 季節効果 ===
+        $season = $this->getCurrentSeason($island['turn']);
+        $seasonFarmBonus = $this->getSeasonBonus($season, 'farm');
+
         // 収入
         // 農業従事者は最優先で確保。それ以外を工商業に割り当てる
 
-        // 農業（ジン所持時ブースト）
+        // 農業（ジン所持時ブースト + 季節ボーナス）
         $farmer = min($pop, $farmer);
         $income = $farmer;
         $income *= ($island['zin'][5] == 1) ? 2 : 1;
+        $income *= $seasonFarmBonus; // 春: +20%
         $island['food'] += $income;
 
         // 工商業従事予定者
