@@ -56,7 +56,8 @@ class InitDefault
     public $maxIsland = 15;
 
     // 島の大きさ （20推奨。上げすぎるとデータ破損します（設計仕様））
-    public $islandSize = 20;
+    // Phase 3-B: マップ拡張（20 → 24）
+    public $islandSize = 24;
 
     // 初期資金
     public $initialMoney = 1000;
