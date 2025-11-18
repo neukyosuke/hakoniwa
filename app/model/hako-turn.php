@@ -3593,6 +3593,7 @@ class Turn
         $pop = $island['pop'];
 
         $island['propaganda'] = $island['propaganda'] ?? 0;
+        $island['oilincome'] = $island['oilincome'] ?? 0;
 
         // 増える人口のタネ値
         $addpop  = 10; // 村、町
@@ -3618,10 +3619,14 @@ class Turn
         // 船・怪獣の移動判定用変数を初期化
         $monsterMove = [];
         $shipMove    = [];
+        $ZorasuMove  = [];
+        $TrainMove   = [];
         for ($i=0;$i<$init->islandSize;$i++) {
             for ($j=0;$j<$init->islandSize;$j++) {
                 $shipMove[$i][$j]    = 0;
                 $monsterMove[$i][$j] = 0;
+                $ZorasuMove[$i][$j]  = 0;
+                $TrainMove[$i][$j]   = 0;
             }
         }
         $bx = 0;
@@ -4789,6 +4794,7 @@ class Turn
                                     $island['oil']++;
                                     $land[$x][$y] = $init->landOil;
                                     $landValue[$x][$y] = 0;
+                                    $point = "($x,$y)";
                                     $this->log->tansakuoil($id, $name, $lName, $point);
                                 } else {
                                     // もと居た位置を海に
