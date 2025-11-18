@@ -2,28 +2,39 @@
 	<h2>更新履歴</h2>
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">2025年11月</h3>
+			<h3 class="panel-title">2025年11月18日</h3>
 		</div>
 		<div class="panel-body">
-			<ul class="list-unstyled">
-				<li><strong>2025-11-18</strong>
+			<h4>改善・修正</h4>
+			<ul>
+				<li><strong>マップ表示の改善</strong>
 					<ul>
-						<li>PHP 8.3対応のための修正を実施
-							<ul>
-								<li>未定義配列キーに関する警告を修正（oilincome, money, ship等）</li>
-								<li>未定義変数に関する警告を修正（$ZorasuMove, $TrainMove）</li>
-								<li>null配列アクセスに関する警告を修正（util.php, hako-turn.php）</li>
-								<li>型キャストとstrict比較の追加</li>
-								<li>未定義定数エラーの修正</li>
-								<li>括弧なしネスト三項演算子の修正</li>
-							</ul>
-						</li>
-						<li>マップタイルサイズを32pxから40pxに変更
-							<ul>
-								<li>画像表示サイズを正しく設定</li>
-								<li>ポップアップウィンドウサイズの調整</li>
-							</ul>
-						</li>
+						<li>マップタイルのサイズを調整し、より見やすくなりました</li>
+						<li>島の表示がより鮮明になりました</li>
+					</ul>
+				</li>
+				<li><strong>履歴機能の追加</strong>
+					<ul>
+						<li>最新5件の履歴を表示する機能を追加しました</li>
+					</ul>
+				</li>
+				<li><strong>同盟機能の修正</strong>
+					<ul>
+						<li>同盟関連の処理を改善しました</li>
+						<li>GM権限周りの動作を修正しました</li>
+					</ul>
+				</li>
+				<li><strong>記念碑の追加</strong>
+					<ul>
+						<li>新しい記念碑（ドイツのトリ）を追加しました</li>
+					</ul>
+				</li>
+				<li><strong>動作の安定性向上</strong>
+					<ul>
+						<li>PHP 8.3環境に対応しました</li>
+						<li>エラー表示が出にくくなりました</li>
+						<li>ターン処理のパフォーマンスを改善しました</li>
+						<li>各種バグを修正しました</li>
 					</ul>
 				</li>
 			</ul>
