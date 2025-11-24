@@ -5120,7 +5120,8 @@ class Turn
                 if (($landKind == $init->landSea) && ($lv == 0)) {
                     // 海賊船登場
                     $land[$x][$y] = $init->landShip;
-                    $landValue[$x][$y] = Util::navyPack(0, array_search('海賊船', $init->shipName, true), $init->shipHP[10], 0, 0);
+                    $shipIndex = array_search('海賊船', $init->shipName, true);
+                    $landValue[$x][$y] = Util::navyPack(0, $shipIndex, $init->shipHP[$shipIndex] ?? 0, 0, 0);
                     $this->log->VikingCome($id, $name, "($x,$y)");
 
                     break;
@@ -6385,19 +6386,30 @@ class Turn
  */
 function popComp($x, $y)
 {
+    // Handle null values
+    if ($x === null && $y === null) {
+        return 0;
+    }
+    if ($x === null) {
+        return 1;
+    }
+    if ($y === null) {
+        return -1;
+    }
+
     if ($x["isDead"] ?? false) {
         return 1;
     } elseif ($y["isDead"] ?? false) {
         return -1;
     }
 
-    if ($x['isBF'] && !$y['isBF']) {
+    if (($x['isBF'] ?? false) && !($y['isBF'] ?? false)) {
         return 1;
-    } elseif ($y['isBF'] && !$x['isBF']) {
+    } elseif (($y['isBF'] ?? false) && !($x['isBF'] ?? false)) {
         return -1;
-    } elseif ($x['isBF'] && $y['isBF']) {
+    } elseif (($x['isBF'] ?? false) && ($y['isBF'] ?? false)) {
         return 0;
     }
     // mean ($x['point'] > $y['point']) ? -1 : 1;
-    return $y['point'] <=> $x['point'];
+    return ($y['point'] ?? 0) <=> ($x['point'] ?? 0);
 }

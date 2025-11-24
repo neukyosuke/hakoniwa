@@ -538,7 +538,12 @@ class File
                 if ($dirFp !== false) {
                     while (false !== ($fileName = readdir($dirFp))) {
                         if ($fileName != "." && $fileName != "..") {
-                            unlink("{$dir_to}/{$fileName}");
+                            $filePath = "{$dir_to}/{$fileName}";
+                            if (is_dir($filePath)) {
+                                rmdir($filePath);
+                            } else {
+                                unlink($filePath);
+                            }
                         }
                     }
                     closedir($dirFp);
