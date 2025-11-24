@@ -607,7 +607,7 @@ class Turn
                     $island['money'] += $init->treeValue * $lv;
                 } else {
                     // 木材を得る
-                    $island['item'][20] += $lv;
+                    $island['item'][20] = (int)$island['item'][20] + (int)$lv;
                 }
                 if ($island['item'][1] == 1) {
                     $returnMode = 0;
@@ -1297,7 +1297,7 @@ class Turn
                             $this->log->landSuc($id, $name, $comName, $point);
                         }
                         // 木材を差し引く
-                        $island['item'][20] -= $landValue[$x][$y] * 100;
+                        $island['item'][20] = (int)$island['item'][20] - ($landValue[$x][$y] * 100);
 
                         break;
 
@@ -3434,7 +3434,7 @@ class Turn
                 $unit = $init->unitTree;
                 // 輸出ログ
                 $this->log->sell($id, $name, $comName, $value, $unit);
-                $island['item'][20] -=  $value;
+                $island['item'][20] = (int)$island['item'][20] - $value;
                 $island['money'] += $value * $init->treeValue;
 
                 $returnMode = 0;
